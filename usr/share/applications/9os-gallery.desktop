@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Gallery
+Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/apps/gallery 
+Icon=9os-gallery
+Terminal=false

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Guadaware Music Store
+Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py https://guadaware-ms.rf.gd/
+Icon=guadaware-music-store
+Terminal=false

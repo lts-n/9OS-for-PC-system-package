@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Calculator
+Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/apps/calculator
+Icon=9os-calculator
+Terminal=false

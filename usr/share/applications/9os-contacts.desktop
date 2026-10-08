@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Contacts
+Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/apps/contacts
+Icon=9os-contacts
+Terminal=false

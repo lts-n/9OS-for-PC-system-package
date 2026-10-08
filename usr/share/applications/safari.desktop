@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Safari
+Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/apps/safari
+Icon=safari
+Terminal=false
