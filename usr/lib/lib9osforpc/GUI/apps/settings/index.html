@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <h1 data-locale="app.settings">Settings</h1>
+    </header>
+    <main>
+        
+
+        <section>
+            <ul>
+                <li>
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23ff9500'/><path d='M10.7 2.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v5.6l7.2 4.3v2.1l-7.2-2.3v4.9l1.9 1.4v1.7L12 19.6l-2.2.7v-1.7l1.9-1.4v-4.9L4.5 14.6v-2.1l7.2-4.3z' fill='%23fff'/></svg>" alt="">
+                    <span data-locale="cc.airplane">Airplane Mode</span>
+                    <label><input id="airplane-toggle" type="checkbox"><span></span></label>
+                </li>
+                <li>
+                    <a href="wifi.html">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23007aff'/><g fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'><path d='M3.5 9.8C8.4 5.4 15.6 5.4 20.5 9.8'/><path d='M6.3 13.2c3.2-2.9 8.2-2.9 11.4 0'/><path d='M9.2 16.5c1.6-1.4 4-1.4 5.6 0'/></g><circle cx='12' cy='19.6' r='1.7' fill='%23fff'/></svg>" alt="">
+                        <span data-locale="cc.wifi">Wi-Fi</span>
+                        <b></b>
+                    </a>
+                </li>
+                <li>
+                    <a href="bluetooth.html">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%233478f6'/><path d='M6.5 7.5 17 16.5 12 20.5V3.5l5 4-10.5 9' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linejoin='round' stroke-linecap='round'/></svg>" alt="">
+                        <span data-locale="cc.bluetooth">Bluetooth</span>
+                        <b></b>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <ul>
+                
+                <li>
+                    <a href="sound.html">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23ff2d55'/><path d='M4 9.3v5.4h3.4L12 18.4V5.6L7.4 9.3H4z' fill='%23fff'/><path d='M15 9.2a4 4 0 0 1 0 5.6M17.4 7a7 7 0 0 1 0 10' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linecap='round'/></svg>" alt="">
+                    <span data-locale="settings.sounds">Sounds</span>
+                    
+                    </a>
+                    
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <ul>
+                <li>
+                    <a href="aboutguadafon.html">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%238e8e93'/><circle cx='12' cy='12' r='6.4' fill='none' stroke='%23fff' stroke-width='2.6' stroke-dasharray='3 2.02'/><circle cx='12' cy='12' r='3.1' fill='%23fff'/></svg>" alt="">
+                        <span data-locale="settings.about">About your device</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="languageselector.html">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23007aff'/><circle cx='12' cy='12' r='8' fill='none' stroke='%23fff' stroke-width='2'/><path d='M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16' fill='none' stroke='%23fff' stroke-width='1.6'/></svg>" alt="">
+                        <span data-locale="settings.language">Language</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      new Locale();
+
+      const SYSTEM_API = "http://localhost:8080";
+      const airplaneToggle = document.getElementById("airplane-toggle");
+      const cellularToggle = document.getElementById("cellular-toggle");
+
+      function setAirplaneMode(on) {
+        fetch(`${SYSTEM_API}/setAirplanemode/${on ? 1 : 0}`, { mode: "no-cors" }).catch(() => {});
+        localStorage.setItem("airplanemode", on ? "1" : "0");
+        renderRadioState(on);
+      }
+
+      function setCellularData(on) {
+        fetch(`${SYSTEM_API}/setCellularDataStatus/${on ? 1 : 0}`, { mode: "no-cors" }).catch(() => {});
+        localStorage.setItem("cellulardata", on ? "1" : "0");
+      }
+
+      function setWifi(on) {
+        fetch(`${SYSTEM_API}/sh/${encodeURIComponent(`nmcli radio wifi ${on ? "on" : "off"}`)}`, { mode: "no-cors" }).catch(() => {});
+        localStorage.setItem("wifi", on ? "1" : "0");
+      }
+
+      function setBluetooth(on) {
+        localStorage.setItem("bluetooth", on ? "1" : "0");
+      }
+
+      function renderRadioState(airplaneOn) {
+        cellularToggle.disabled = airplaneOn;
+        if (airplaneOn) {
+          cellularToggle.checked = false;
+          setCellularData(false);
+          setWifi(false);
+          setBluetooth(false);
+        }
+      }
+
+      fetch(`${SYSTEM_API}/getAirplanemode`, { mode: "no-cors" })
+        .then((res) => res.text())
+        .then((text) => {
+          airplaneToggle.checked = text === "1";
+          renderRadioState(text === "1");
+        })
+        .catch(() => {});
+
+      fetch(`${SYSTEM_API}/getCellularDataStatus`, { mode: "no-cors" })
+        .then((res) => res.text())
+        .then((text) => {
+          if (!localStorage.getItem("airplanemode")) {
+            cellularToggle.checked = text === "1";
+          }
+        })
+        .catch(() => {});
+
+      airplaneToggle.addEventListener("change", () => {
+        setAirplaneMode(airplaneToggle.checked);
+      });
+
+      cellularToggle.addEventListener("change", () => {
+        if (airplaneToggle.checked) {
+          cellularToggle.checked = false;
+          return;
+        }
+        setCellularData(cellularToggle.checked);
+      });
+    </script>
+</body>
+</html>

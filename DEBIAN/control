@@ -1,0 +1,9 @@
+Package: 9os-for-pc-syspkg
+Version: 26.1.0-main
+Section: misc
+Priority: optional
+Architecture: all
+Depends: python3, python3-pip, task-mate-desktop, mate-desktop-environment-extras, plank, chromium, curl, modemmanager, gnome-contacts
+Maintainer: LTS-N <labtecsev.n@gmail.com>
+Description: 9OS for PC's system package designed to run over Debian for pc9 and other computers.
+ Contains 9OS System API as a systemd service and 9OS apps as normal linux desktop apps.

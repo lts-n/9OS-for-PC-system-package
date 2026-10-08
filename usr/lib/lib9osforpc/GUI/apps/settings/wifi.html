@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wi-Fi</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+    <style>
+        #password-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        #password-overlay[hidden] {
+            display: none;
+        }
+        #password-card {
+            width: 85%;
+            max-width: 300px;
+            background: #f2f2f7;
+            border-radius: 14px;
+            padding: 18px 16px 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        #password-title {
+            margin: 0 0 12px;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: center;
+            color: #000;
+            word-break: break-all;
+        }
+        #password-input {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #fff;
+            color: #000;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+        #password-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 14px;
+        }
+        #password-buttons button {
+            flex: 1;
+            border: none;
+            background: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 0;
+            color: #007aff;
+        }
+        #password-buttons button:active {
+            opacity: 0.4;
+        }
+        #password-cancel { color: #ff3b30; }
+    </style>
+</head>
+<body>
+    <header>
+        <span><button><a href="index.html" data-locale="settings.back">Back</a></button></span>
+        <span><h1 data-locale="cc.wifi">Wi-Fi</h1></span>
+    </header>
+
+    <section>
+        <ul>
+            <li>
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23007aff'/><g fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'><path d='M3.5 9.8C8.4 5.4 15.6 5.4 20.5 9.8'/><path d='M6.3 13.2c3.2-2.9 8.2-2.9 11.4 0'/><path d='M9.2 16.5c1.6-1.4 4-1.4 5.6 0'/></g><circle cx='12' cy='19.6' r='1.7' fill='%23fff'/></svg>" alt="">
+                <span data-locale="cc.wifi">Wi-Fi</span>
+                <label><input id="wifi-toggle" type="checkbox"><span></span></label>
+            </li>
+        </ul>
+    </section>
+
+    <h2 data-locale="wifi.networks">Networks</h2>
+    <section>
+        <ul id="network-list">
+            <li>Scanning…</li>
+        </ul>
+    </section>
+
+    <div id="password-overlay" hidden>
+        <div id="password-card">
+            <h3 id="password-title"></h3>
+            <input type="password" id="password-input" autocomplete="off" placeholder="Password">
+            <div id="password-buttons">
+                <button id="password-cancel" data-locale="wifi.cancel">Cancel</button>
+                <button id="password-connect" data-locale="wifi.connect">Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      const locale = new Locale();
+      const SYSTEM_API = "http://localhost:8080";
+      const wifiToggle = document.getElementById("wifi-toggle");
+      const networkList = document.getElementById("network-list");
+
+      let currentNetwork = null;
+      let airplaneOn = localStorage.getItem("airplanemode") === "1";
+
+      function renderWifiState() {
+        wifiToggle.disabled = airplaneOn;
+        if (airplaneOn) {
+          wifiToggle.checked = false;
+          networkList.innerHTML = `<li>${locale.t("wifi.off")}</li>`;
+        }
+      }
+
+      function sh(cmd) {
+        return fetch(`${SYSTEM_API}/sh/${encodeURIComponent(cmd)}`)
+          .then((res) => res.text())
+          .catch(() => "");
+      }
+
+      function setWiFi(on) {
+        if (airplaneOn) {
+          wifiToggle.checked = false;
+          return;
+        }
+        sh(`nmcli radio wifi ${on ? "on" : "off"}`)
+          .then(() => {
+            localStorage.setItem("wifi", on ? "1" : "0");
+            if (on) scan();
+            else networkList.innerHTML = `<li>${locale.t("wifi.notconnected")}</li>`;
+          });
+      }
+
+      async function loadState() {
+        renderWifiState();
+        if (airplaneOn) return;
+        const state = (await sh("nmcli radio wifi")).trim();
+        wifiToggle.checked = state.includes("enabled");
+        if (wifiToggle.checked) {
+          loadCurrent();
+          scan();
+        } else {
+          networkList.innerHTML = `<li>${locale.t("wifi.off")}</li>`;
+        }
+      }
+
+      async function loadCurrent() {
+        const active = (await sh("nmcli -t -f ACTIVE,SSID dev wifi"))
+          .trim().split("\n").find((line) => line.startsWith("yes:"));
+        currentNetwork = active ? active.split(":")[1] : null;
+      }
+
+      async function scan() {
+        networkList.innerHTML = `<li>${locale.t("wifi.scanning")}</li>`;
+        const raw = (await sh("nmcli -t -f IN-USE,SSID,SIGNAL,SECURITY dev wifi list"))
+          .trim().split("\n").filter((l) => l);
+        const rows = raw.map((line) => line.split(":"));
+        if (!rows.length) {
+          networkList.innerHTML = `<li>${locale.t("wifi.nonetworks")}</li>`;
+          return;
+        }
+        networkList.innerHTML = "";
+        rows.forEach(([inUse, ssid, signal, security]) => {
+          if (!ssid) return;
+          const li = document.createElement("li");
+          const badge = inUse.startsWith("*") ? locale.t("wifi.connected")
+            : security === "" ? locale.t("wifi.open") : locale.t("wifi.secured");
+          li.innerHTML = `
+            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23007aff'/><g fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'><path d='M3.5 9.8C8.4 5.4 15.6 5.4 20.5 9.8'/><path d='M6.3 13.2c3.2-2.9 8.2-2.9 11.4 0'/><path d='M9.2 16.5c1.6-1.4 4-1.4 5.6 0'/></g><circle cx='12' cy='19.6' r='1.7' fill='%23fff'/></svg>" alt="">
+            ${ssid}
+            <b>${badge}</b>
+          `;
+          li.addEventListener("click", () => startConnect(ssid, security));
+          networkList.appendChild(li);
+        });
+      }
+
+      function startConnect(ssid, security) {
+        if (security !== "" && security !== "--") {
+          openPasswordPrompt(ssid);
+        } else {
+          sh(`nmcli dev wifi connect "${ssid}"`).then(() => scan());
+        }
+      }
+
+      const passwordOverlay = document.getElementById("password-overlay");
+      const passwordTitle = document.getElementById("password-title");
+      const passwordInput = document.getElementById("password-input");
+      const passwordCancel = document.getElementById("password-cancel");
+      const passwordConnect = document.getElementById("password-connect");
+      let pendingSsid = null;
+
+      function openPasswordPrompt(ssid) {
+        pendingSsid = ssid;
+        passwordTitle.textContent = `${locale.t("wifi.passwordfor")} ${ssid}`;
+        passwordInput.value = "";
+        passwordOverlay.hidden = false;
+        passwordInput.focus();
+      }
+
+      function closePasswordPrompt() {
+        passwordOverlay.hidden = true;
+        passwordInput.blur();
+        pendingSsid = null;
+      }
+
+      function connectWithPassword() {
+        if (!pendingSsid) return;
+        const password = passwordInput.value;
+        closePasswordPrompt();
+        sh(`nmcli dev wifi connect "${pendingSsid}" password "${password}"`).then(() => scan());
+      }
+
+      passwordCancel.addEventListener("click", closePasswordPrompt);
+      passwordConnect.addEventListener("click", connectWithPassword);
+      passwordInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") connectWithPassword();
+      });
+
+      passwordInput.addEventListener("focus", () => {
+        try { parent.postMessage({ type: "guadaware:input-focus", placeholder: "" }, "*"); } catch (e) {}
+      });
+      passwordInput.addEventListener("blur", () => {
+        try { parent.postMessage({ type: "guadaware:input-blur" }, "*"); } catch (e) {}
+      });
+
+      window.addEventListener("message", (e) => {
+        if (!e.data || typeof e.data.type !== "string") return;
+        const el = document.activeElement;
+        if (el !== passwordInput) return;
+        const start = el.selectionStart;
+        const end = el.selectionEnd;
+        const val = el.value;
+        if (e.data.type === "guadaware:keyboard-input") {
+          el.value = val.substring(0, start) + e.data.char + val.substring(end);
+          el.setSelectionRange(start + e.data.char.length, start + e.data.char.length);
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+        } else if (e.data.type === "guadaware:keyboard-backspace") {
+          if (start !== end) {
+            el.value = val.substring(0, start) + val.substring(end);
+            el.setSelectionRange(start, start);
+          } else if (start > 0) {
+            el.value = val.substring(0, start - 1) + val.substring(start);
+            el.setSelectionRange(start - 1, start - 1);
+          }
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+        } else if (e.data.type === "guadaware:keyboard-enter") {
+          connectWithPassword();
+        }
+      });
+
+      wifiToggle.addEventListener("change", () => {
+        setWiFi(wifiToggle.checked);
+      });
+
+      loadState();
+    </script>
+</body>
+</html>

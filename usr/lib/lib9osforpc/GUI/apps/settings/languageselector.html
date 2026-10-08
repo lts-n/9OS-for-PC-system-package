@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language selector</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <span><button><a href="index.html" data-locale="settings.back">Back</a></button></span>
+        <span><h1 data-locale="settings.langselect">Language selector</h1></span>
+    </header>
+    <main>
+        <section>
+            <ul>
+                <li data-locale-option="en">
+                    <span class="lang-name">English</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="es">
+                    <span class="lang-name">Español</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="ca">
+                    <span class="lang-name">Català</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="eu">
+                    <span class="lang-name">Euskara</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="gl">
+                    <span class="lang-name">Galego</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="pt">
+                    <span class="lang-name">Português</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="zh">
+                    <span class="lang-name">简体中文</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      const locale = new Locale();
+
+      document.querySelectorAll("[data-locale-option]").forEach((li) => {
+        const code = li.getAttribute("data-locale-option");
+        const radio = li.querySelector("input");
+        radio.checked = code === locale.locale;
+        li.addEventListener("click", () => {
+          locale.set(code);
+          radio.checked = true;
+        });
+      });
+    </script>
+</body>
+</html>

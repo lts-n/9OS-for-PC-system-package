@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Guadaware</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <span><button><a href="index.html" data-locale="settings.back">Back</a></button></span>
+        <span><h1>9OS 26.1 for PC</h1></span>
+
+    </header>
+   
+    <section>
+        <ul>
+            <li>
+                <span data-locale="about.storage">Storage</span>
+                <b id="disk-usage">—</b>
+            </li>
+        </ul>
+    </section>
+      <section>
+        <ul>
+          <li>
+            <a href="http://localhost:8080/poweroff" data-locale="about.poweroff">
+            Power off
+            </a>
+        </li>
+      </ul>
+    </section>
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      const locale = new Locale();
+      const SYSTEM_API = "http://localhost:8080";
+
+      async function fill(id, endpoint) {
+        const el = document.getElementById(id);
+        try {
+          const res = await fetch(SYSTEM_API + endpoint);
+          el.textContent = (await res.text()).trim() || "—";
+        } catch {
+          el.textContent = locale.t("about.unavailable");
+        }
+      }
+
+      fill("pc-model", "/getPCModel");
+      fill("ram-usage", "/getRAMUsage");
+      fill("disk-usage", "/getDiskUsage");
+      fill("cpu-model", "/getCPUModel");
+      fill("gpu-model", "/getGPUModel");
+    </script>
+</body>
+</html>
