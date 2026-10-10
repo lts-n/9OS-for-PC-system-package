@@ -1,0 +1,13 @@
+[Unit]
+Description=9OS GUI Server (HTTP static server for web apps)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/lib/lib9osforpc/GUI
+ExecStart=/usr/bin/python3 -m http.server 8000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

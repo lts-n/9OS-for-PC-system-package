@@ -1,0 +1,13 @@
+[Unit]
+Description=9OS System API (REST backend)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/lib/lib9osforpc/services
+ExecStart=/usr/bin/python3 /usr/lib/lib9osforpc/services/9OSSystemAPI
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
