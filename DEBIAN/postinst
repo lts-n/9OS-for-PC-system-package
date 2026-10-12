@@ -1,3 +1,26 @@
 #!/bin/sh
 set -e
-pip3 install --break-system-packages bottle
+
+#DEBHELPER#
+
+if [ "$1" = "configure" ]; then
+
+    # Rebuild the desktop database so the new .desktop entries are registered.
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database -q /usr/share/applications || true
+    fi
+
+    # Refresh the icon cache of the theme that received the new icons.
+    if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+        gtk-update-icon-cache -f -t /usr/share/icons/hicolor >/dev/null 2>&1 || true
+    fi
+
+    # Enable the 9OS user services for all users (they start on next login).
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl --user --global enable 9OSGUIServer.service || true
+        systemctl --user --global enable 9OSSystemAPI.service || true
+    fi
+
+fi
+
+exit 0
