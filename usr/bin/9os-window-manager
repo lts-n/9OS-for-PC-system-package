@@ -1,0 +1,43 @@
+#!/bin/sh
+set -u
+
+seed_profile() {
+    dir="${XDG_CONFIG_HOME:-$HOME/.config}/compiz/compizconfig"
+    if [ ! -e "$dir/Default.ini" ] && [ -r /usr/share/9os/compiz/Default.ini ]; then
+        mkdir -p "$dir" 2>/dev/null || true
+        cp /usr/share/9os/compiz/Default.ini "$dir/Default.ini" 2>/dev/null || true
+    fi
+}
+
+run_fallback() {
+    if command -v marco >/dev/null 2>&1; then
+        exec marco --replace
+    fi
+    if command -v mutter >/dev/null 2>&1; then
+        exec mutter --replace
+    fi
+    exec marco --replace
+}
+
+seed_profile
+
+if ! command -v compiz >/dev/null 2>&1; then
+    run_fallback
+fi
+
+if command -v glxinfo >/dev/null 2>&1; then
+    renderer="$(glxinfo -B 2>/dev/null | sed -n 's/^OpenGL renderer string:[[:space:]]*//p')"
+    case "$renderer" in
+        ""|*llvmpipe*|*softpipe*|*swrast*|*software*|*Software*|*Mesa\ OffScreen*)
+            run_fallback
+            ;;
+    esac
+else
+    run_fallback
+fi
+
+if command -v gtk-window-decorator >/dev/null 2>&1; then
+    gtk-window-decorator --replace >/dev/null 2>&1 &
+fi
+
+exec compiz ccp --replace --sm-disable

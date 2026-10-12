@@ -15,6 +15,11 @@ if [ "$1" = "configure" ]; then
         gtk-update-icon-cache -f -t /usr/share/icons/hicolor >/dev/null 2>&1 || true
     fi
 
+    # Compile the GSettings overrides (Compiz as the default MATE window manager).
+    if command -v glib-compile-schemas >/dev/null 2>&1; then
+        glib-compile-schemas /usr/share/glib-2.0/schemas || true
+    fi
+
     # Enable the 9OS user services for all users (they start on next login).
     if command -v systemctl >/dev/null 2>&1; then
         systemctl --user --global enable 9OSGUIServer.service || true

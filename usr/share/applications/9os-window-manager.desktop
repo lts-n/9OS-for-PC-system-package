@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=9OS Window Manager
+Exec=/usr/bin/9os-window-manager
+Icon=compiz
+NoDisplay=true
+X-MATE-Provides=windowmanager
+X-MATE-Autostart-Phase=WindowManager
+X-MATE-WMName=compiz
