@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+#DEBHELPER#
+
+ORIG=/etc/os-release
+ALT=/etc/os-release.real
+
+if [ "$1" = "install" ] || [ "$1" = "upgrade" ]; then
+    if ! dpkg-divert --list 2>/dev/null | grep -q "by 9os-for-pc-syspkg"; then
+        if [ -e "$ORIG" ]; then
+            dpkg-divert --package 9os-for-pc-syspkg --add --rename --divert "$ALT" "$ORIG"
+        fi
+    fi
+fi
+
+exit 0
