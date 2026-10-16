@@ -1,0 +1,10 @@
+[Unit]
+Description=9OS Desktop Layout Activator
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/9os-desktop-layout
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

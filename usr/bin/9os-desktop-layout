@@ -1,0 +1,3 @@
+#!/bin/bash
+set -e
+gsettings set org.mate.panel toplevel-id-list "[]"; gsettings set org.mate.session.required-components.panel ""

@@ -24,6 +24,7 @@ if [ "$1" = "configure" ]; then
     if command -v systemctl >/dev/null 2>&1; then
         systemctl --user --global enable 9OSGUIServer.service || true
         systemctl --user --global enable 9OSSystemAPI.service || true
+        systemctl --user --global enable 9OSDesktopLayoutActivator.service || true
     fi
 
 fi
