@@ -1,8 +1,9 @@
 Package: 9os-for-pc-syspkg
-Version: 26.2.10-main
+Version: 26.2.11-main
 Section: misc
 Priority: optional
 Architecture: all
+Conflicts: plymouth
 Depends: python3, fastfetch, python3-bottle, python3-gi, gir1.2-gtk-3.0, gir1.2-webkit2-4.1,
  network-manager, modemmanager, gnome-calls, pulseaudio-utils,
  evolution-data-server, gnome-contacts, task-mate-desktop,
