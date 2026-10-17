@@ -1,3 +1,39 @@
 #!/bin/bash
-set -e
-gsettings set org.mate.panel toplevel-id-list "[]"; gsettings set org.mate.session.required-components.panel ""
+set -euo pipefail
+
+# Remove MATE's bottom panel(s) (the taskbar) so Plank can replace it.
+# Any other panels (e.g. the top menu bar) are kept.
+if command -v gsettings >/dev/null 2>&1; then
+    # Make sure mate-panel stays a required session component, otherwise the
+    # remaining panel(s) would not come back on the next login.
+    gsettings reset org.mate.session.required-components panel 2>/dev/null || true
+
+    ids="$(gsettings get org.mate.panel toplevel-id-list 2>/dev/null || echo '[]')"
+    keep=()
+    for id in $(printf '%s' "$ids" | sed "s/@as//g; s/[][',]//g"); do
+        orientation="$(gsettings get "org.mate.panel.toplevel:/org/mate/panel/toplevels/$id/" orientation 2>/dev/null || true)"
+        if [ "$orientation" = "'bottom'" ]; then
+            # Drop the panel's objects too, so no orphan applets are left behind.
+            objects="$(gsettings get org.mate.panel object-id-list 2>/dev/null || echo '[]')"
+            keep_objects=()
+            for obj in $(printf '%s' "$objects" | sed "s/@as//g; s/[][',]//g"); do
+                parent="$(gsettings get "org.mate.panel.object:/org/mate/panel/objects/$obj/" toplevel-id 2>/dev/null || true)"
+                if [ "$parent" != "'$id'" ]; then
+                    keep_objects+=("'$obj'")
+                fi
+            done
+            IFS=, joined_objects="${keep_objects[*]}"; unset IFS
+            gsettings set org.mate.panel object-id-list "[$joined_objects]"
+        else
+            keep+=("'$id'")
+        fi
+    done
+
+    IFS=, joined_toplevels="${keep[*]}"; unset IFS
+    gsettings set org.mate.panel toplevel-id-list "[$joined_toplevels]"
+fi
+
+# Launch the Plank dock if it is installed and not already running.
+if command -v plank >/dev/null 2>&1 && ! pgrep -x plank >/dev/null 2>&1; then
+    nohup plank >/dev/null 2>&1 &
+fi

@@ -16,7 +16,7 @@ from datetime import datetime
 MUSIC_ROOT = os.path.expanduser("~/Music")
 AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
 
-PHOTOS_ROOT = os.path.expanduser("~/Downloads/")
+PHOTOS_ROOT = os.path.expanduser("~/Pictures/")
 PHOTO_EXTS = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp")
 VIDEO_EXTS = (".mp4", ".webm", ".ogg", ".mov")
 

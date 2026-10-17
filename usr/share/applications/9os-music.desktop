@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Music
-Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py https://localhost:8000/apps/music
+Exec=python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/apps/music
 Icon=9os-music
 Terminal=false
