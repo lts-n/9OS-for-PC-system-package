@@ -18,8 +18,8 @@ class Dock:
                 "path": "chromium",
                 "icon": "media/icons/browser_icon.png"
             },
-            "Settings": {
-                "path": "apps/settings/View.py",
+            "Settings (Legacy)": {
+                "path": "apps/settings_legacy/View.py",
                 "icon": "media/icons/settings_icon.png"
             },
             "Music Player": {
