@@ -3,9 +3,9 @@ from subprocess import run, PIPE
 from gi.repository import Gtk, GdkPixbuf
 from gi.repository import Gio
 
-gms = "python3 ../../lib9osforpc/webappframework/main.pyw http://guadaware-ms.rf.gd/"
-webapp = "python3 ../../lib9osforpc/webappframework/main.pyw http://localhost:8000/"
-icons_dir = "../../share/icons/hicolor/128x128/apps/"
+gms = "python3 ../../../lib9osforpc/webappframework/main.py http://guadaware-ms.rf.gd/"
+webapp = "python3 ../../../lib9osforpc/webappframework/main.py http://localhost:8000/"
+icons_dir = "../../../share/icons/hicolor/128x128/apps/"
 
 class Dock:
     def __init__(self):
