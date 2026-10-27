@@ -11,7 +11,7 @@ from Folder import Folder
 
 class View(Gtk.Window):
     def __init__(self):
-        super().__init__(title="Finder")
+        super().__init__(title="File Manager (Legacy)")
 
         directory = Folder("/")
 
