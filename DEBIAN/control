@@ -1,14 +1,16 @@
 Package: 9os-for-pc-syspkg
-Version: 26.2.11-main
+Version: 26.2.12-nrpr-main
 Section: misc
 Priority: optional
 Architecture: all
 Conflicts: plymouth
-Depends: python3, fastfetch, python3-bottle, python3-gi, gir1.2-gtk-3.0, gir1.2-webkit2-4.1,
+Depends: python3, labwc, fastfetch, python3-bottle, python3-gi, gir1.2-gtk-3.0, gir1.2-webkit2-4.1,
  network-manager, modemmanager, gnome-calls, pulseaudio-utils,
  evolution-data-server, gnome-contacts, task-mate-desktop,
- mate-desktop-environment-extras, plank, desktop-file-utils, gtk-update-icon-cache,
- compiz, compiz-mate, compiz-plugins-extra, mesa-utils
+ mate-desktop-environment-extras, plank, desktop-file-utils, 
+ gtk-update-icon-cache, compiz, compiz-mate, compiz-plugins-extra, 
+ mesa-utils, python3-gi-cairo, gir1.2-gtk-3.0, gir1.2-gdkpixbuf-2.0, 
+ gir1.2-gio-2.0, gir1.2-glib-2.0, gir1.2-gobject-2.0, gir1.2-gtklayershell-0.1, python3-xdg, pulseaudio-utils, python3-screeninfo
 Maintainer: LTS-N <labtecsev.n@gmail.com>
 Description: 9OS for PC's system package designed to run over Debian for pc9 and other computers.
- Contains 9OS System API as a systemd service and 9OS apps as normal linux desktop apps.
+ Contains 9OS System API as a systemd service, LúminaWay and 9OS apps as normal linux desktop apps.

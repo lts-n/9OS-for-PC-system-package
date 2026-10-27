@@ -1,0 +1,37 @@
+window {
+    background-color: transparent;
+    font-size: large;
+    color: rgb(0, 0, 0);
+    border: 2px;
+    border-radius: 10px;
+}
+#mainBox {
+    padding: 160px;
+    border-radius: 10px;
+}
+button {
+    min-width: 48px;
+    min-height: 48px;
+    margin: 20px;
+
+    background-color: transparent;
+    background-image: none;
+
+    border-radius: 50%;
+
+    transition:
+        margin-bottom 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+
+    box-shadow:
+        0 12px 18px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    background-color: rgba(0, 0, 0, 0.08);
+}
