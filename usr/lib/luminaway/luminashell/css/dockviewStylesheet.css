@@ -1,32 +1,32 @@
 #dock {
     background-color: transparent;
+    padding: 4px 8px;
 }
 
 button {
     min-width: 48px;
     min-height: 48px;
     margin: 0 6px;
+    padding: 4px;
 
     background-color: transparent;
     background-image: none;
 
-    border-radius: 50%;
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
 
-    transition:
-        margin-bottom 180ms ease,
-        box-shadow 180ms ease,
-        background-color 180ms ease;
+    transition: background-color 150ms ease;
 }
 
 button:hover {
-    margin-bottom: 5px;
-
-    background-color: rgba(255, 255, 255, 0.35);
-
-    box-shadow:
-        0 12px 18px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 button:active {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+button:focus {
+    outline: none;
 }

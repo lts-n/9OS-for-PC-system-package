@@ -11,7 +11,7 @@ class Dock:
     def __init__(self):
         self.dock_files = {
             "Launchpad": {
-                "path": f"apps/launchpad/Launchpad.py",
+                "path": f"apps/launchpad/View.py",
                 "icon": f"{icons_dir}9os-launchpad.png",
             },
             "File Manager (Legacy)": {
@@ -43,7 +43,7 @@ class Dock:
                 "icon": f"{icons_dir}9os-calculator.png",
             },
             "Clock": {
-                "path": f"apps/clock/View.py",
+                "path": f"apps/clock/main.py",
                 "icon": f"{icons_dir}9os-clock.png",
             },
             "Settings": {
