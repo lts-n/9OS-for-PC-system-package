@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Launchpad
+Exec=python3 apps/launchpad/View.py
+Path=/usr/lib/luminaway/luminashell
+Icon=9os-launchpad
+Terminal=false
+Categories=Utility;

@@ -100,7 +100,7 @@ def safariProxy(url):
         headers[key] = value
     headers["Host"] = parsed.netloc
     headers["Accept-Encoding"] = "identity"
-    headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+    headers["User-Agent"] = "Mozilla/5.0 (Wayland; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
     headers["Accept"] = headers.get("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
     cookie = request.get_header("Cookie")
     if cookie:
