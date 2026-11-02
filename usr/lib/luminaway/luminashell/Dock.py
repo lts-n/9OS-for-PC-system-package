@@ -4,7 +4,7 @@ from gi.repository import Gtk, GdkPixbuf
 from gi.repository import Gio
 
 gms = "python3 /usr/lib/lib9osforpc/webappframework/main.py http://guadaware-ms.rf.gd/"
-webapp = "python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/"
+webapp = "python3 /usr/lib/lib9osforpc/webappframework/main.py http://localhost:8000/apps/"
 icons_dir = "../../../share/icons/hicolor/128x128/apps/"
 
 class Dock:
