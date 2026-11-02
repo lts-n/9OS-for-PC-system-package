@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /lib64/ld-linux-x86-64.so.2 --library-path /usr/lib/luminaway/compositor-libs /usr/lib/luminaway/luminaway-compositor.bin "$@"
+exec /usr/lib/luminaway/compositor-libs/ld-linux-x86-64.so.2 --library-path /usr/lib/luminaway/compositor-libs /usr/lib/luminaway/luminaway-compositor.bin "$@"
