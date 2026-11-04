@@ -111,12 +111,60 @@ entry:focus {
 }
 
 spinbutton {
+    min-height: 36px;
     border: none;
     border-radius: 6px;
     background-color: rgba(142, 142, 147, 0.18);
     background-image: none;
     color: #000000;
     box-shadow: none;
+}
+
+spinbutton entry {
+    min-height: 0;
+    padding: 0 8px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    color: #000000;
+    box-shadow: none;
+    caret-color: #007aff;
+}
+
+entry selection,
+spinbutton selection {
+    background-color: #007aff;
+    color: #ffffff;
+}
+
+spinbutton button {
+    min-width: 22px;
+    min-height: 16px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    background-image: none;
+    color: #007aff;
+    box-shadow: none;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+    transition: background-color 150ms ease;
+}
+
+spinbutton button:hover {
+    background-color: rgba(0, 122, 255, 0.12);
+}
+
+spinbutton button:active {
+    background-color: rgba(0, 122, 255, 0.2);
+}
+
+spinbutton button:disabled {
+    background-color: transparent;
+    color: #8a8a8e;
 }
 
 scale trough {

@@ -6,6 +6,11 @@ set -e
 if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
     # Restore base-files' own /etc/os-release (undo the preinst diversion).
     dpkg-divert --package 9os-for-pc-syspkg --remove --rename --divert /etc/os-release.real /etc/os-release || true
+
+    # Remove the skeleton folders if they are still empty.
+    for dir in /etc/skel/Downloads /etc/skel/Music /etc/skel/Documents; do
+        rmdir "$dir" 2>/dev/null || true
+    done
 fi
 
 exit 0
