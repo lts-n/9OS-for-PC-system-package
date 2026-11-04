@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=LúminaWay
-Comment=Iniciar el compositor LúminaWay al iniciar sesión
-Exec=luminaway
-Terminal=false
-X-GNOME-Autostart-enabled=true
