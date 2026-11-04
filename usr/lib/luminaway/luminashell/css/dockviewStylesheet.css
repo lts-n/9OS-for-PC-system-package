@@ -3,7 +3,8 @@
     padding: 4px 8px;
 }
 
-button {
+#dock button,
+#dock-button {
     min-width: 48px;
     min-height: 48px;
     margin: 0 6px;
@@ -13,20 +14,25 @@ button {
     background-image: none;
 
     border: none;
-    border-radius: 10px;
+    border-radius: 7px;
     box-shadow: none;
+    text-shadow: none;
 
     transition: background-color 150ms ease;
 }
 
-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+#dock button:hover,
+#dock-button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
 }
 
-button:active {
-    background-color: rgba(0, 0, 0, 0.12);
+#dock button:active,
+#dock-button:active {
+    background-color: #d9d9da;
 }
 
-button:focus {
+#dock button:focus,
+#dock-button:focus {
     outline: none;
+    box-shadow: none;
 }

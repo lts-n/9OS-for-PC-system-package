@@ -1,70 +1,228 @@
 window {
     background-color: transparent;
-    font-size: large;
-    color: rgb(0, 0, 0);
-    border: 2px;
-    border-radius: 10px;
+    color: #000000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
 }
+
 #mainBox {
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.669);
-    border: 2px;
+    background-color: #ffffff;
+    border: none;
     border-radius: 10px;
 }
-button {
-    min-width: 20px;
-    min-height: 5px;
 
-    border-radius: 10px;
-    border: 1px solid rgba(160, 180, 200, 0.9);
-
-    background-image:
-        radial-gradient(
-            circle at top,
-            rgba(255,255,255,0.95) 0%,
-            rgba(245,248,252,0.9) 30%,
-            rgba(210,225,240,0.85) 55%,
-            rgba(180,200,220,0.9) 100%
-        );
-
-    box-shadow:
-        inset 0 2px 4px rgba(255,255,255,0.9),
-        inset 0 -3px 6px rgba(120,140,160,0.45),
-        0 0 6px rgba(200,220,255,0.6);
-
-    color: #2a2a2a;
-    font-weight: bold;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+scrolledwindow,
+scrolledwindow viewport,
+viewport {
+    background-color: transparent;
+    border: none;
 }
-button:hover {
-    box-shadow:
-        inset 0 2px 4px rgba(255,255,255,1),
-        inset 0 -3px 6px rgba(120,140,160,0.45),
-        0 0 10px rgba(220,235,255,0.9);
-}
-button:active {
-    background-image:
-        radial-gradient(
-            circle at bottom,
-            rgba(240,245,250,0.95),
-            rgba(200,215,230,0.9),
-            rgba(170,190,210,0.95)
-        );
 
-    box-shadow:
-        inset 0 4px 8px rgba(120,140,160,0.6),
-        0 0 4px rgba(200,220,255,0.5);
-}
-button:disabled {
-    background-image:
-        radial-gradient(
-            circle,
-            #e6ebf0,
-            #cfd7e0
-        );
-
-    border-color: #b8c2cc;
+headerbar {
+    background-color: rgba(249, 249, 249, 0.94);
+    border-top: none;
+    border-right: none;
+    border-bottom: 0.5px solid #c8c8c8;
+    border-left: none;
+    border-radius: 10px 10px 0 0;
     box-shadow: none;
-    color: #9aa3ad;
+}
+
+#time-label {
+    font-size: 34px;
+    font-weight: 700;
+    color: #000000;
+}
+
+#date-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: #6d6d72;
+}
+
+button {
+    padding: 6px;
+    border: none;
+    border-radius: 7px;
+    background-color: transparent;
+    background-image: none;
+    color: #007aff;
+    font-size: 17px;
+    font-weight: 400;
+    box-shadow: none;
     text-shadow: none;
+    transition: background-color 150ms ease;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+button:active {
+    background-color: #d9d9da;
+}
+
+button:disabled {
+    background-color: transparent;
+    color: #8a8a8e;
+    box-shadow: none;
+}
+
+button.text-button {
+    padding: 11px;
+    background-color: #007aff;
+    color: #ffffff;
+}
+
+button.text-button:hover {
+    background-color: #0a84ff;
+}
+
+button.text-button:active {
+    background-color: #0064d1;
+}
+
+button.text-button:disabled {
+    background-color: #efeff4;
+    color: #8a8a8e;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+entry {
+    min-height: 36px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(142, 142, 147, 0.18);
+    background-image: none;
+    color: #000000;
+    box-shadow: none;
+    caret-color: #007aff;
+}
+
+entry:focus {
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.18);
+}
+
+spinbutton {
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(142, 142, 147, 0.18);
+    background-image: none;
+    color: #000000;
+    box-shadow: none;
+}
+
+scale trough {
+    min-height: 2px;
+    border: none;
+    border-radius: 1px;
+    background-color: rgba(255, 255, 255, 0.9);
+    background-image: none;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.15);
+}
+
+scale highlight {
+    border: none;
+    border-radius: 1px;
+    background-color: #007aff;
+    background-image: none;
+}
+
+scale slider {
+    min-width: 28px;
+    min-height: 28px;
+    margin: -13px 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #ffffff;
+    background-image: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+scale marks,
+scale value {
+    color: #8a8a8e;
+    font-size: 13px;
+}
+
+list {
+    background-color: transparent;
+    border: none;
+}
+
+list row {
+    min-height: 44px;
+    padding: 8px 15px;
+    background-color: #ffffff;
+    border: none;
+    border-bottom: 0.5px solid #c8c8c8;
+}
+
+list row:last-child {
+    border-bottom: none;
+}
+
+list row:hover {
+    background-color: #f2f2f7;
+}
+
+list row:selected {
+    background-color: #d9d9da;
+    color: #000000;
+}
+
+scrollbar {
+    background-color: transparent;
+    border: none;
+}
+
+scrollbar trough {
+    background-color: transparent;
+    border: none;
+}
+
+scrollbar slider {
+    min-width: 6px;
+    min-height: 6px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-image: none;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog {
+    background-color: rgba(250, 250, 250, 0.96);
+    border: none;
+    border-radius: 14px;
+}
+
+dialog button,
+dialog button.text-button {
+    min-height: 44px;
+    padding: 0 11px;
+    border: none;
+    border-left: 0.5px solid #c8c8c8;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    color: #007aff;
+    font-size: 17px;
+    font-weight: 400;
+    box-shadow: none;
+}
+
+dialog button:active,
+dialog button.text-button:active {
+    background-color: rgba(0, 0, 0, 0.06);
 }

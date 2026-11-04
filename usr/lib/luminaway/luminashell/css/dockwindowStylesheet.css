@@ -1,6 +1,9 @@
 window {
     background-color: rgba(249, 249, 249, 0.94);
-    border-top: 1px solid #c8c8c8;
+    color: #000000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    border-top: 0.5px solid #c8c8c8;
     border-right: none;
     border-bottom: none;
     border-left: none;
