@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Settings (Legacy)
-Exec=python3 apps/settings_legacy/View.py
-Path=/usr/lib/luminaway/luminashell
-Icon=9os-settings
-Terminal=false
-Categories=Settings;

@@ -50,10 +50,6 @@ class Dock:
                 "path": f"{webapp}settings",
                 "icon": f"{icons_dir}9os-settings.png",
             },
-            "Settings (Legacy)": {
-                "path": f"apps/settings_legacy/View.py",
-                "icon": f"{icons_dir}9os-settings.png",
-            },
         }
     def returndock(self):
         return self.dock_files

@@ -3,7 +3,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk, GdkPixbuf
 from Dock import Dock
 from subprocess import Popen, PIPE
-import config
+
 
 dock_object = Dock()
 def run(path):
@@ -40,7 +40,7 @@ class DockView(Gtk.Box):
                 btn = Gtk.Button()
                 btn.set_name("dock-button")
                 image = Gtk.Image.new_from_file(apps[app]["icon"])
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(apps[app]["icon"], config.icon_size, config.icon_size)
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(apps[app]["icon"], 64, 64)
                 image.set_from_pixbuf(pixbuf)
                 btn.set_image(image)
                 btn.connect(
