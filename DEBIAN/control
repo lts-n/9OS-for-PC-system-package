@@ -1,5 +1,5 @@
 Package: 9os-for-pc-syspkg
-Version: 26.3.26-rc1-main
+Version: 26.3.27-main
 Section: misc
 Priority: optional
 Architecture: amd64
