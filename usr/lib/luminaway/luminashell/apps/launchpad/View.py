@@ -9,7 +9,7 @@ from subprocess import Popen
 luminashell = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 if luminashell not in sys.path:
     sys.path.insert(0, luminashell)
-import config
+
 from Launchpad import Launchpad
 from Screen import Screen
 
@@ -57,7 +57,7 @@ class View(Gtk.Window):
         self.scrolled_window.add(self.grid)
 
         screen_width = screen_object.width()
-        icon_space = config.icon_size + 100
+        icon_space = 164
         max_cols = max(1, screen_width // icon_space)
 
         col = 0
@@ -76,9 +76,20 @@ class View(Gtk.Window):
             btn.set_name("launchpad-button")
 
             pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                icon, config.icon_size, config.icon_size
+                icon, 64, 64
             )
-            btn.set_image(Gtk.Image.new_from_pixbuf(pixbuf))
+
+            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+            box.pack_start(Gtk.Image.new_from_pixbuf(pixbuf), False, False, 0)
+
+            label = Gtk.Label(label=data.get("name", ""))
+            label.set_name("launchpad-label")
+            label.set_line_wrap(True)
+            label.set_justify(Gtk.Justification.CENTER)
+            label.set_max_width_chars(12)
+            box.pack_start(label, False, False, 0)
+
+            btn.add(box)
 
             btn.connect("clicked", self.launch_app, path)
 
