@@ -13,14 +13,33 @@ var timesClicked = 0; // number of times x^y button was clicked
 function typed(value, element) {
   if (isSuper) element = superscript;
   else element = normal;
-  let n = document.querySelector(element).innerText;
-  if (n == "0" && n.length == 1)
-    //to prevent typing 0 in beginning
-    document.querySelector(element).innerText = value;
-  else document.querySelector(element).innerText += value;
+
+  const target = document.querySelector(element);
+  const text = target.innerText;
+  const currentNumber = (text.match(/(\d*\.?\d*)$/) || [""])[0];
+
+  if (/^[0-9]+$/.test(value)) {
+    if (currentNumber === "0")
+      //to prevent typing 0 in beginning
+      target.innerText = text.slice(0, -1) + value;
+    else target.innerText += value;
+    return;
+  }
+
+  if (value === ".") {
+    if (currentNumber.includes(".")) return;
+    if (currentNumber === "") target.innerText += "0.";
+    else if (currentNumber === "0") target.innerText = text.slice(0, -1) + "0.";
+    else target.innerText += ".";
+    return;
+  }
+
+  target.innerText += value;
 }
 function displayAnswer(ans) {
   if (!isNaN(ans)) {
+    if (typeof ans === "number" && isFinite(ans) && !Number.isInteger(ans))
+      ans = parseFloat(ans.toPrecision(12));
     document.getElementById("answer").innerHTML = ans;
   } else {
     document.getElementById("answer").innerHTML = locale.t("calc.incorrect");
