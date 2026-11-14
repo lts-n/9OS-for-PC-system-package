@@ -14,8 +14,8 @@ class Dock:
                 "path": f"apps/launchpad/View.py",
                 "icon": f"{icons_dir}9os-launchpad.png",
             },
-            "File Manager (Legacy)": {
-                "path": "apps/fm/View.py",
+            "Dolphin": {
+                "path": "dolphin",
                 "icon": f"{icons_dir}9os-fmlegacy.png",
             },
             "Safari": {

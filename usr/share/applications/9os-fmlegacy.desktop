@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=File Manager (Legacy)
-Exec=python3 apps/fm/View.py
-Path=/usr/lib/luminaway/luminashell
-Icon=9os-fmlegacy
-Terminal=false
-Categories=System;FileTools;FileManager;
